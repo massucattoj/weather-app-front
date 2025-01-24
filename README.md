@@ -2,6 +2,9 @@
 
 A simple weather app built with **Vite**, **Tailwind CSS**, and **TypeScript** that allows users to search for cities and view current weather data. This app features an autocomplete search, error handling, and a responsive UI design.
 
+- Link to test:
+https://weather-app-front-seven.vercel.app/
+
 ## Features
 
 - **Autocomplete Search**: Type and search for cities with real-time suggestions.
