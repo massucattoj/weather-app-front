@@ -77,7 +77,7 @@ export function SearchBox({ onCitySelect }: SearchBoxProps) {
     <div className="relative">
       <div className="flex">
         <input
-          type="search"
+          type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a city..."
