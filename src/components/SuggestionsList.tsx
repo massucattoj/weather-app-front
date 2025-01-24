@@ -12,7 +12,7 @@ export function SuggestionsList({
   onSelect,
 }: SuggestionsListProps) {
   return (
-    <ul className="glass absolute mt-2 w-full rounded-xl text-white">
+    <ul className="glass-dark absolute mt-2 w-full rounded-xl text-white">
       {suggestions.map((city, index) => (
         <li
           key={city.id}
