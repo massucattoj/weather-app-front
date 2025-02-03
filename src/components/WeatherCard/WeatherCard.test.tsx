@@ -1,42 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { WeatherData } from '../interfaces/weatherData'
+
 import { WeatherCard } from './WeatherCard'
+import { WeatherData } from '../../interfaces/weatherData'
+import { format } from 'date-fns'
+import { mockWeatherData } from '../../test/mocks/mockWeatherData'
 
 describe('WeatherCard', () => {
-  const mockWeather: WeatherData = {
-    coord: { lon: -74.006, lat: 40.7128 },
-    weather: [
-      { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-    ],
-    base: 'stations',
-    main: {
-      temp: 25,
-      feels_like: 24.5,
-      temp_min: 22,
-      temp_max: 28,
-      pressure: 1013,
-      humidity: 65,
-      sea_level: 1013,
-      grnd_level: 1000,
-    },
-    visibility: 10000,
-    wind: { speed: 5.2, deg: 180 },
-    clouds: { all: 0 },
-    dt: 1672531200,
-    sys: {
-      type: 1,
-      id: 1414,
-      country: 'US',
-      sunrise: 1672502400,
-      sunset: 1672545600,
-    },
-    timezone: -18000,
-    id: 5128581,
-    name: 'New York',
-    cod: 200,
-  }
+  const mockWeather: WeatherData = mockWeatherData
 
   it('renders the temperature correctly', () => {
     render(<WeatherCard weather={mockWeather} />)
@@ -98,5 +70,17 @@ describe('WeatherCard', () => {
     render(<WeatherCard weather={mockWeather} />)
 
     expect(screen.getByText(/clear/i)).toBeInTheDocument()
+  })
+  
+  it('renders the sunrise time correctly', () => {
+    render(<WeatherCard weather={mockWeather} />)
+    const sunriseTime = format(new Date(mockWeather.sys.sunrise * 1000), 'h:mm a')
+    expect(screen.getByText(sunriseTime)).toBeInTheDocument()
+  })
+  
+  it('renders the sunset time correctly', () => {
+    render(<WeatherCard weather={mockWeather} />)
+    const sunsetTime = format(new Date(mockWeather.sys.sunset * 1000), 'h:mm a')
+    expect(screen.getByText(sunsetTime)).toBeInTheDocument()
   })
 })

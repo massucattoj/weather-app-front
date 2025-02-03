@@ -2,8 +2,8 @@ import { Cloud } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { getWeatherInfo, getWeatherInfoByCoordinate } from './api/weatherApi'
-import { SearchBox } from './components/SearchBox'
-import { WeatherCard } from './components/WeatherCard'
+import { SearchBox } from './components/SearchBox/SearchBox'
+import { WeatherCard } from './components/WeatherCard/WeatherCard'
 import { WeatherData } from './interfaces/weatherData'
 
 export function App() {
@@ -27,6 +27,7 @@ export function App() {
           setWeather(weatherData)
         } catch (error) {
           console.error('Failed to fetch weather data:', error)
+          
           setError('Could not fetch weather data. Please try again.')
         } finally {
           setIsLoading(false)
@@ -53,9 +54,9 @@ export function App() {
       setError(
         error.message || 'Could not fetch weather data. Please try again.',
       )
-    } finally {
-      setIsLoading(false)
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -70,12 +71,12 @@ export function App() {
         <h1 className="text-4xl font-bold tracking-tight text-white sm:text-3xl">
           Weather Forecast
         </h1>
-        <p className="mt-2 text-white/80 sm:text-sm">
+        <p className="mt-2 text-white/80 sm:text-lg">
           Search for your city to check the weather
         </p>
       </div>
 
-      <div className="z-10 w-full max-w-lg">
+      <div className="z-10 w-full max-w-2xl">
         <SearchBox onCitySelect={handleCitySelect} />
       </div>
 
@@ -85,13 +86,21 @@ export function App() {
         </div>
       )}
 
-      {/* Loading Indicator */}
-      {isLoading && <p className="mt-4 text-white">Loading...</p>}
+      {isLoading && (
+        <div className="mt-4 flex justify-center">
+          <svg className="h-6 w-6 animate-spin text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"></path>
+          </svg>
+        </div>
+      )}
 
       {/* Weather Card */}
       {weather && !isLoading && !error && (
-        <div className="mt-24 w-full max-w-lg transform transition-all duration-500 ease-out">
-          <WeatherCard weather={weather} />
+        <div className="mt-24 w-full max-w-2xl transform transition-all duration-500 ease-out">
+          <WeatherCard
+            weather={weather}
+          />
         </div>
       )}
     </div>

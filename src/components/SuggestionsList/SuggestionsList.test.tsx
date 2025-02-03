@@ -1,56 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { CityData } from '../interfaces/cityData'
 import { SuggestionsList } from './SuggestionsList'
+import { mockCityData } from '../../test/mocks/mockCityData'
 
-const suggestions: CityData[] = [
-  {
-    id: 1,
-    wikiDataId: 'Q60',
-    type: 'city',
-    city: 'New York',
-    name: 'New York',
-    country: 'United States',
-    countryCode: 'US',
-    region: 'New York',
-    regionCode: 'NY',
-    regionWdId: 'NY-001',
-    latitude: 40.7128,
-    longitude: -74.006,
-    population: 8175133,
-  },
-  {
-    id: 2,
-    wikiDataId: 'Q65',
-    type: 'city',
-    city: 'Los Angeles',
-    name: 'Los Angeles',
-    country: 'United States',
-    countryCode: 'US',
-    region: 'California',
-    regionCode: 'CA',
-    regionWdId: 'CA-001',
-    latitude: 34.0522,
-    longitude: -118.2437,
-    population: 3792621,
-  },
-  {
-    id: 3,
-    wikiDataId: 'Q84',
-    type: 'city',
-    city: 'London',
-    name: 'London',
-    country: 'United Kingdom',
-    countryCode: 'GB',
-    region: 'England',
-    regionCode: 'ENG',
-    regionWdId: 'ENG-001',
-    latitude: 51.5074,
-    longitude: -0.1278,
-    population: 8982000,
-  },
-]
+const suggestions = mockCityData
 
 describe('SuggestionsList', () => {
   const mockOnSelect = vi.fn() // Use vi.fn() instead of jest.fn()

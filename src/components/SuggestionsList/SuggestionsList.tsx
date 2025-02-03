@@ -1,4 +1,4 @@
-import { CityData } from '../interfaces/cityData'
+import { CityData } from "../../interfaces/cityData"
 
 interface SuggestionsListProps {
   suggestions: CityData[]
