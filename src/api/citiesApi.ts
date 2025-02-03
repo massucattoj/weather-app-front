@@ -14,8 +14,11 @@ export const searchCities = async (query: string) => {
     )
 
     return response.data
-  } catch (error) {
-    console.error('Error fetching cities:', error)
-    return []
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || 'Error fetching cities.')
+    } else {
+      throw new Error('An unexpected error occurred')
+    }
   }
 }
