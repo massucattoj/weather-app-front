@@ -15,25 +15,17 @@ export const activitySuggestionApi = async (weather: WeatherData) => {
   const message = generateActivityPrompt(weather)
 
   try {
-    const openAiResponse = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-4o-mini',
-        messages: [{ role: 'user', content: message }],
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAPI_KEY}`,
-        },
-      },
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/activity`, {
+        message,
+      }
     )
 
-    return openAiResponse.data.choices?.[0]?.message?.content?.trim() || 'No suggestion available'
-
+    return response.data
+    
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || 'Error fetching cities.')
+      throw new Error(error.response?.data?.message || 'Error fetching activity suggestions.')
     } else {
       throw new Error('An unexpected error occurred')
     }
