@@ -5,6 +5,9 @@ A simple weather app built with **Vite**, **Tailwind CSS**, and **TypeScript** t
 - Link to test:
 https://weather-app-front-seven.vercel.app/
 
+
+![App Screenshot](./src/assets/hero.png)
+
 ## Features
 
 - **Autocomplete Search**: Type and search for cities with real-time suggestions.

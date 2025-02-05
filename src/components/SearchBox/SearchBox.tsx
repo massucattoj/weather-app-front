@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce'
 import { Search } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { searchCities } from '../../api/citiesApi'
 import { CityData } from '../../interfaces/cityData'
@@ -17,28 +17,34 @@ export function SearchBox({ onCitySelect }: SearchBoxProps) {
   const [error, setError] = useState<string | null>(null)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
-  const fetchSuggestions = useMemo(
-    () =>
-      debounce(async (searchQuery: string) => {
-        if (searchQuery.length < 2) {
-          setSuggestions([])
-          return
-        }
-
-        setIsLoading(true)
-        setError(null)
-        try {
-          const cities: CityData[] = await searchCities(searchQuery)
-          setSuggestions(cities)
-        } catch (err) {
-          console.error('Error fetching city suggestions:', err)
-          setError('Failed to fetch city suggestions. Please try again.')
-        } finally {
-          setIsLoading(false)
-        }
-      }, 2000),
+  const fetchSuggestions = useCallback(
+    debounce(async (searchQuery: string) => {
+      if (searchQuery.length < 2) {
+        setSuggestions([])
+        return
+      }
+  
+      setIsLoading(true)
+      setError(null)
+      try {
+        const cities: CityData[] = await searchCities(searchQuery)
+        setSuggestions(cities)
+      } catch (err) {
+        console.error('Error fetching city suggestions:', err)
+        setError('Failed to fetch city suggestions. Please try again.')
+      } finally {
+        setIsLoading(false)
+      }
+    }, 2000),
     [],
   )
+
+  // cleaning the debounce function
+  useEffect(() => {
+    return () => {
+      fetchSuggestions.cancel()
+    }
+  }, [fetchSuggestions])
 
   useEffect(() => {
     fetchSuggestions(query)
