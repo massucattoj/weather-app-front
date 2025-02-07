@@ -1,4 +1,4 @@
-import { CityData } from "../../interfaces/cityData";
+import type { CityData } from '../../interfaces/cityData'
 
 export const mockCityData: CityData[] = [
   {
@@ -45,5 +45,5 @@ export const mockCityData: CityData[] = [
     latitude: 51.5074,
     longitude: -0.1278,
     population: 8982000,
-  }
+  },
 ]

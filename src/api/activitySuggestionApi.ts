@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { WeatherData } from '../interfaces/weatherData'
+import type { WeatherData } from '../interfaces/weatherData'
 
 const generateActivityPrompt = (weather: WeatherData): string => {
   const { name: city, sys, main, weather: weatherDetails } = weather
@@ -16,18 +16,19 @@ export const activitySuggestionApi = async (weather: WeatherData) => {
 
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/activity`, {
+      `${import.meta.env.VITE_API_URL}/api/activity`,
+      {
         message,
       }
     )
 
     return response.data
-    
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || 'Error fetching activity suggestions.')
-    } else {
-      throw new Error('An unexpected error occurred')
+      throw new Error(
+        error.response?.data?.message || 'Error fetching activity suggestions.'
+      )
     }
+    throw new Error('An unexpected error occurred')
   }
 }

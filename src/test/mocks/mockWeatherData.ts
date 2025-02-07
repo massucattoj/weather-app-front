@@ -1,10 +1,8 @@
-import { WeatherData } from "../../interfaces/weatherData";
+import type { WeatherData } from '../../interfaces/weatherData'
 
 export const mockWeatherData: WeatherData = {
   coord: { lon: -74.006, lat: 40.7128 },
-  weather: [
-    { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-  ],
+  weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
   base: 'stations',
   main: {
     temp: 25,

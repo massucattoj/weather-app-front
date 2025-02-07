@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { Coordinates } from '../interfaces/cityData'
+import type { Coordinates } from '../interfaces/cityData'
 
 export const getWeatherInfo = async (city: string) => {
   try {
@@ -8,18 +8,17 @@ export const getWeatherInfo = async (city: string) => {
       `${import.meta.env.VITE_API_URL}/api/weather`,
       {
         params: { city },
-      },
+      }
     )
 
     return response.data
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw new Error(
-        error.response?.data?.message || 'Failed to fetch weather data',
+        error.response?.data?.message || 'Failed to fetch weather data'
       )
-    } else {
-      throw new Error('An unexpected error occurred')
     }
+    throw new Error('An unexpected error occurred')
   }
 }
 
@@ -35,17 +34,16 @@ export const getWeatherInfoByCoordinate = async ({
           lat: latitude,
           lon: longitude,
         },
-      },
+      }
     )
 
     return response.data
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw new Error(
-        error.response?.data?.message || 'Failed to fetch weather data',
+        error.response?.data?.message || 'Failed to fetch weather data'
       )
-    } else {
-      throw new Error('An unexpected error occurred')
     }
+    throw new Error('An unexpected error occurred')
   }
 }

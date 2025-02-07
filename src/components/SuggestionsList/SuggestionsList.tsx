@@ -1,4 +1,4 @@
-import { CityData } from "../../interfaces/cityData"
+import type { CityData } from '../../interfaces/cityData'
 
 interface SuggestionsListProps {
   suggestions: CityData[]
@@ -24,6 +24,12 @@ export function SuggestionsList({
           onClick={() =>
             onSelect(`${city.name}, ${city.region}, ${city.country}`)
           }
+          onKeyUp={e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onSelect(`${city.name}, ${city.region}, ${city.country}`)
+            }
+          }}
+          // tabIndex={0}
         >
           {city.name}, {city.region}, {city.country}
         </li>

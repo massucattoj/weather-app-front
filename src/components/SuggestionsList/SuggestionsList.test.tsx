@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { SuggestionsList } from './SuggestionsList'
 import { mockCityData } from '../../test/mocks/mockCityData'
+import { SuggestionsList } from './SuggestionsList'
 
 const suggestions = mockCityData
 
@@ -15,14 +15,14 @@ describe('SuggestionsList', () => {
         suggestions={suggestions}
         selectedIndex={null}
         onSelect={mockOnSelect}
-      />,
+      />
     )
 
-    suggestions.forEach((city) => {
+    for (const city of suggestions) {
       expect(
-        screen.getByText(`${city.name}, ${city.region}, ${city.country}`),
+        screen.getByText(`${city.name}, ${city.region}, ${city.country}`)
       ).toBeInTheDocument()
-    })
+    }
   })
 
   it('applies the correct class for the selected index', () => {
@@ -31,11 +31,11 @@ describe('SuggestionsList', () => {
         suggestions={suggestions}
         selectedIndex={1} // Selecting "Los Angeles"
         onSelect={mockOnSelect}
-      />,
+      />
     )
 
     const selectedItem = screen.getByText(
-      'Los Angeles, California, United States',
+      'Los Angeles, California, United States'
     )
     expect(selectedItem).toHaveClass('bg-white/20') // Check for the selected style
   })
@@ -46,16 +46,16 @@ describe('SuggestionsList', () => {
         suggestions={suggestions}
         selectedIndex={null}
         onSelect={mockOnSelect}
-      />,
+      />
     )
 
     const losAngelesItem = screen.getByText(
-      'Los Angeles, California, United States',
+      'Los Angeles, California, United States'
     )
     await userEvent.click(losAngelesItem)
 
     expect(mockOnSelect).toHaveBeenCalledWith(
-      'Los Angeles, California, United States',
+      'Los Angeles, California, United States'
     )
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
   })
@@ -66,7 +66,7 @@ describe('SuggestionsList', () => {
         suggestions={suggestions}
         selectedIndex={null}
         onSelect={mockOnSelect}
-      />,
+      />
     )
 
     const firstItem = screen.getByText('New York, New York, United States')

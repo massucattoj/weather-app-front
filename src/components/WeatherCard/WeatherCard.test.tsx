@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-
-import { WeatherCard } from './WeatherCard'
-import { WeatherData } from '../../interfaces/weatherData'
 import { format } from 'date-fns'
+import type { WeatherData } from '../../interfaces/weatherData'
 import { mockWeatherData } from '../../test/mocks/mockWeatherData'
+import { WeatherCard } from './WeatherCard'
 
 describe('WeatherCard', () => {
   const mockWeather: WeatherData = mockWeatherData
@@ -44,7 +43,7 @@ describe('WeatherCard', () => {
 
     expect(img).toHaveAttribute(
       'src',
-      `${import.meta.env.VITE_OPEN_WEATHER_URL}/img/wn/01d@2x.png`,
+      `${import.meta.env.VITE_OPEN_WEATHER_URL}/img/wn/01d@2x.png`
     )
   })
 
@@ -71,13 +70,16 @@ describe('WeatherCard', () => {
 
     expect(screen.getByText(/clear/i)).toBeInTheDocument()
   })
-  
+
   it('renders the sunrise time correctly', () => {
     render(<WeatherCard weather={mockWeather} />)
-    const sunriseTime = format(new Date(mockWeather.sys.sunrise * 1000), 'h:mm a')
+    const sunriseTime = format(
+      new Date(mockWeather.sys.sunrise * 1000),
+      'h:mm a'
+    )
     expect(screen.getByText(sunriseTime)).toBeInTheDocument()
   })
-  
+
   it('renders the sunset time correctly', () => {
     render(<WeatherCard weather={mockWeather} />)
     const sunsetTime = format(new Date(mockWeather.sys.sunset * 1000), 'h:mm a')

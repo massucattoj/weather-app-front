@@ -31,9 +31,15 @@ describe('WeatherStatCard', () => {
   })
 
   it('renders the subtitle when provided', () => {
-    
-    render(<WeatherStatCard icon={icon} title={title} value={value} subtitle={subtitle} />)
-  
+    render(
+      <WeatherStatCard
+        icon={icon}
+        title={title}
+        value={value}
+        subtitle={subtitle}
+      />
+    )
+
     expect(screen.getByText(subtitle)).toBeInTheDocument()
   })
 })

@@ -10,15 +10,14 @@ export const searchCities = async (query: string) => {
         params: {
           query,
         },
-      },
+      }
     )
 
     return response.data
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || 'Error fetching cities.')
-    } else {
-      throw new Error('An unexpected error occurred')
     }
+    throw new Error('An unexpected error occurred')
   }
 }
